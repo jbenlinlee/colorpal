@@ -1,0 +1,25 @@
+div#palette {
+	position: relative;
+	margin-bottom: 10px;
+}
+
+div#export {
+	position: relative;
+	padding: 5px;
+	border-width: 1px;
+	border-style: dashed;
+	border-color: #CCCCCC;
+	
+	font-family: Helvetica, sans-serif;
+	
+	word-wrap: break-word;
+}
+
+div#export div.label {
+	margin-bottom: 5px;
+}
+
+div#export div.json {
+	font-family: Anonymous, monospace;
+	font-size: 10pt;
+}

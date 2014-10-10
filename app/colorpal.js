@@ -1,0 +1,1 @@
+var colorPalApp = angular.module('colorPalApp', ['colorEntry', 'colorPalette']);
