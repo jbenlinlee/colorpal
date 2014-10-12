@@ -1,6 +1,8 @@
 var colorEntryModule = angular.module('colorEntry', []);
 
 colorEntryModule.directive('cpEntry', [function() {
+	var lastShareValue = 0;
+	
 	function setEntryColor(entry, newColor) {
 		entry.rgbcolor = newColor.toHexString();
 	}
@@ -29,8 +31,18 @@ colorEntryModule.directive('cpEntry', [function() {
 			scope.$emit('copyColor', idx);
 		}
 		
-		scope.$watch('cpColor.label', function(oldLabel, newLabel) {
+		scope.$watch('cpColor.label', function(newLabel, oldLabel) {
 			scope.$emit('colorChange', scope.cpEntryIndex, scope.cpColor.rgbcolor);
+		});
+		
+		scope.cpColor.nextCheck = true;
+		
+		scope.$watch('cpColor.share', function(newShare, oldShare) {			
+			if (scope.cpColor.nextCheck) {
+				scope.$emit('colorShareChange', scope.cpEntryIndex, parseFloat(oldShare), parseFloat(newShare));
+			}
+			
+			scope.cpColor.nextCheck = true;
 		});
 	}
 	

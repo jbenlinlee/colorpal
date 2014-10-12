@@ -1,0 +1,16 @@
+cp-volume div.color-volume-container {
+	position: relative;
+	width: 100px;
+	height: 100px;
+	
+	border-width: 1px;
+	border-style: solid;
+	border-color: #777777;
+}
+
+cp-volume div.color-volume-container div.color-volume-block {
+	float: left;
+	
+	width: 10px;
+	height: 10px;
+}

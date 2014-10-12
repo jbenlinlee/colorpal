@@ -12,7 +12,7 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 	function updateUrl() {
 		// #c=FFFFFF;n=abcdefg,c=777777;n=test
 		var urlString = $scope.colorPalette.map(function(color, idx) {
-			return ['c=', color.rgbcolor, ';n=', encodeURIComponent(color.label)].join('');
+			return ['c=', color.rgbcolor, ';n=', encodeURIComponent(color.label), ';s=', color.share].join('');
 		}).join(',');
 		
 		encodedHash = encodeURIComponent(urlString);
@@ -37,6 +37,8 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 				case 'n=':
 					newColorEntry.label = decodeURIComponent(colorEntryComponent.substr(2));
 					break;
+				case 's=':
+					newColorEntry.share = parseFloat(colorEntryComponent.substr(2));
 				default:
 					break;
 				}
@@ -48,7 +50,7 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 		});
 		
 		if (newPalette.length == 0) {
-			newPalette.push({rgbcolor: "#000000", label: "New Color"});
+			newPalette.push({rgbcolor: "#000000", label: "New Color", share: 100});
 		}
 		
 		$scope.colorPalette = newPalette;
@@ -65,10 +67,11 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 	
 	$scope.$on('addColor', function(event, insertionIdx) {
 		var newPalette = [];
+		
 		$scope.colorPalette.forEach(function(entry, idx) {
 			newPalette.push(entry);
 			if (idx == insertionIdx) {
-				newPalette.push({rgbcolor: "#000000", label: "New Color"});
+				newPalette.push({rgbcolor: "#000000", label: "New Color", share: 0});
 			}
 		});
 		
@@ -77,14 +80,19 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 	
 	$scope.$on('removeColor', function(event, removalIdx) {
 		var newPalette = [];
+		var shareToDistribute = parseFloat($scope.colorPalette[removalIdx].share);
+		var adjustmentPerShare = shareToDistribute / ($scope.colorPalette.length - 1);
+		
 		$scope.colorPalette.forEach(function(entry, idx) {
 			if (idx !== removalIdx) {
+				entry.share = parseFloat(entry.share) + adjustmentPerShare;
+				entry.nextCheck = false;
 				newPalette.push(entry);
 			}
 		});
 		
 		if (newPalette.length == 0) {
-			newPalette.push({rgbcolor: "#000000", label: "New Color"});
+			newPalette.push({rgbcolor: "#000000", label: "New Color", share: 100});
 		}
 		
 		$scope.colorPalette = newPalette;
@@ -97,17 +105,44 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 		});
 
 		var sourceColor = $scope.colorPalette[copyIdx];
-		newPalette.push({rgbcolor: sourceColor.rgbcolor, label: sourceColor.label});
+		newPalette.push({rgbcolor: sourceColor.rgbcolor, label: sourceColor.label, share: 0});
 		
 		$scope.colorPalette = newPalette;
 	});
 	
 	$scope.$on('colorChange', function(event, colorIdx, newColor) {
 		updateUrl();
+		$scope.$broadcast('paletteChange', $scope.colorPalette);
+	});
+	
+	$scope.$on('colorShareChange', function(event, colorIdx, oldShare, newShare) {
+		var changeToDistribute = -1.0 * (newShare - oldShare);
+		
+		var newPalette = [];
+
+		var availableChange = $scope.colorPalette.reduce(function(prev, entry, idx) {
+			return prev + (idx !== colorIdx ? parseFloat(entry.share) : 0.0);
+		}, 0.0);
+		
+		var averageChange = changeToDistribute / ($scope.colorPalette.length - 1);
+		
+		$scope.colorPalette.forEach(function(entry, idx) {
+			if (idx != colorIdx) {
+				entry.share = parseFloat(entry.share);
+				entry.share += availableChange > 0 ? entry.share / availableChange * changeToDistribute : averageChange;
+				entry.share = Math.round(entry.share);
+			}
+			
+			entry.nextCheck = false;
+			newPalette.push(entry);
+		});
+		
+		$scope.colorPalette = newPalette;
 	});
 		
 	$scope.$watch('colorPalette', function(newPalette, oldPalette) {
 		updateUrl();
+		$scope.$broadcast('paletteChange', newPalette);
 	});
 	
 	parseURL(window.location);
