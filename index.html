@@ -5,31 +5,33 @@
 	<link rel="stylesheet" type="text/css" href="lib/spectrum.css">
 	<link rel="stylesheet" type="text/css" href="colorpal.css">
 	<link rel="stylesheet" type="text/css" href="app/colorentry/colorentry.css">
+	<link rel="stylesheet" type="text/css" href="app/colorvolume/colorvolume.css">
 </head>
 <body>
 	<div ng-controller="colorPaletteController">
+		<div id="paletteVolume">
+			<cp-volume cp-palette="colorPalette" id="volumeBlock"></cp-volume>
+		</div>
+		
 		<div id="palette">
 			<div class="cp-entry-container" ng-repeat="colorEntry in colorPalette">
 				<cp-entry cp-color="colorEntry" cp-entry-index="$index"></cp-entry>
 			</div>
 		</div>
-		
+	
 		<div id="export">
 			<div class="json">{{exportURL}}</div>
 		</div>
 	</div>
 	
-	<!--
 	<script type="text/javascript" src="lib/angular.js"></script>
 	<script type="text/javascript" src="lib/jquery.js"></script>
 	<script type="text/javascript" src="lib/spectrum.js"></script>
 	
 	<script type="text/javascript" src="app/colorentry/colorentry.js"></script>
 	<script type="text/javascript" src="app/colorpalette/colorpalette.js"></script>
+	<script type="text/javascript" src="app/colorvolume/colorvolume.js"></script>
 	<script type="text/javascript" src="app/colorpal.js"></script>
-	-->
-		
-	<script type="text/javascript" src="test.min.js"></script>
 	
 	<!-- Angular template cache stuff -->
 	<script type="text/ng-template" id="app/colorentry/colorentry.html">
@@ -39,10 +41,116 @@
 			</div>
 			<div id="label" class="label">
 				<input type="text" ng-model="cpColor.label">
+				<input type="range" min="0" max="100" ng-model="cpColor.share"/>
 				<a href="#" ng-click="addColor(cpEntryIndex)">[add]</a>
 				<a href="#" ng-click="removeColor(cpEntryIndex)">[remove]</a>
 				<a href="#" ng-click="copyColor(cpEntryIndex)">[copy]</a>
 			</div>
+		</div>
+	</script>
+	
+	<script type="text/ng-template" id="app/colorvolume/colorvolume.html">
+		<div class="color-volume-container">
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
+			<div class="color-volume-block"></div>
 		</div>
 	</script>
 </body>
