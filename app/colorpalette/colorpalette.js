@@ -66,17 +66,22 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 	}
 	
 	$scope.$on('addColor', function(event, insertionIdx) {
+		$scope.appendColor(insertionIdx);
+	});
+	
+	$scope.appendColor = function(insertionIdx) {
+		var targetIdx = insertionIdx || $scope.colorPalette.length - 1;
 		var newPalette = [];
 		
 		$scope.colorPalette.forEach(function(entry, idx) {
 			newPalette.push(entry);
-			if (idx == insertionIdx) {
+			if (idx == targetIdx) {
 				newPalette.push({rgbcolor: "#000000", label: "New Color", share: 0});
 			}
 		});
 		
-		$scope.colorPalette = newPalette;
-	});
+		$scope.colorPalette = newPalette;		
+	}
 	
 	$scope.$on('removeColor', function(event, removalIdx) {
 		var newPalette = [];
