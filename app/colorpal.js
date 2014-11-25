@@ -1,1 +1,1 @@
-var colorPalApp = angular.module('colorPalApp', ['colorEntry', 'colorPalette', 'colorVolume']);
+var colorPalApp = angular.module('colorPalApp', ['colorEntry', 'colorPalette']);

@@ -1,9 +1,8 @@
 cp-entry div.color-entry {
 	position: relative;
-	padding-left: 81px;
+	padding: 0.5em 0.5em 0.5em 4.5em;
 	
-	height: 81px;
-	width: 100%;
+	min-height: 4em;
 }
 
 cp-entry div.swatch-container {
@@ -11,14 +10,10 @@ cp-entry div.swatch-container {
 	top: 0px;
 	left: 0px;
 	
-	width: 64px;
-	height: 64px;
-
-	border-color: #000000;
-	border-style: none;
-	border-width: 1px;
+	width: 4em;
+	height: 4em;
 	
-	padding: 5px;
+	box-sizing: border-box;
 }
 
 cp-entry div.swatch-container div.swatch {
@@ -26,7 +21,67 @@ cp-entry div.swatch-container div.swatch {
 	height: 100%;
 }
 
-cp-entry div.label {
-	padding: 5px;
+cp-entry div.swatch-container div.swatch-compare {
+	width: 50%;
+	height: 100%;
+	
+	position: absolute;
+	left: 50%;
+	top: 0%;
+}
+
+cp-entry div#visible-label {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+cp-entry div#edit-panel {
+	display: none;
+	position: relative;
+	width: 100%;
+}
+
+cp-entry div.color-entry[edit-mode="edit"] div#edit-panel {
+	display: block;
+}
+
+cp-entry div.color-entry[edit-mode="edit"] div#visible-label {
+	display: none;
+}
+
+cp-entry div.color-entry[edit-mode="browse"] div.swatch-compare {
+	display: none;
+}
+
+cp-entry div.color-entry[edit-mode="edit"] div.swatch-compare {
+	display: block;
+}
+
+cp-entry div.color-entry[edit-mode="edit"] {
+	padding-bottom: 1em;
+	margin-bottom: 1em;
+	border-bottom: 1px dashed #CCCCCC;
+}
+
+cp-entry div.color-entry div#edit-panel button#entryEditCancel {
+	display: none;
+}
+
+cp-entry div.color-entry[edit-mode="edit"] div#edit-panel[changed="true"] button#entryEditCancel {
+	display: block;
+}
+
+cp-entry div#edit-panel input {
+	width: 100%;
+	margin-bottom: 0.5em;
+}
+
+cp-entry div#edit-panel input#label-input {
+	font-size: 100%;
 	font-family: Helvetica, sans-serif;
+}
+
+cp-entry div#edit-panel .cpEntryAction {
+	font-size: small;
 }
