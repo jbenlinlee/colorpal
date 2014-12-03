@@ -16,10 +16,11 @@ div#header {
 	background-color: #777777;
 	color: #CCCCCC;
 	
-	padding: 0px 5px 10px;
+	padding: 0px 5px 0.5em;
 }
 
 div#header div#view-name {
+	padding-top: 1em;
 	font-family: Futura, Helvetica, sans-serif;
 	font-size: 150%;
 }
