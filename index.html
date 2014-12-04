@@ -20,10 +20,12 @@
 			<div class="cp-entry-container" ng-repeat="colorEntry in colorPalette">
 				<cp-entry cp-color="colorEntry" cp-entry-index="$index"></cp-entry>
 			</div>
-		</div>
+			
+			<div class="cp-entry-container"></div> <!-- Placeholder -->
 		
-		<div id="add-control" ng-click="appendColor()">
-			<div id="add-label" style="font-size: 1.5em">+</div>
+			<div class="cp-entry-container" id="add-control" ng-click="appendColor()">
+			  <div id="add-label" style="font-size: 1.5em">+</div>
+			</div>
 		</div>
 	</div>
 	
