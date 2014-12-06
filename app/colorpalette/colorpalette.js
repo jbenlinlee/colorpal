@@ -76,7 +76,8 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 		$scope.colorPalette.forEach(function(entry, idx) {
 			newPalette.push(entry);
 			if (idx == targetIdx) {
-				newPalette.push({rgbcolor: "#000000", label: "New Color", share: 0});
+				var newColor = tinycolor({h: (Math.random() * 100), s: (Math.random() * 100), l: (Math.random() * 100)});	
+				newPalette.push({rgbcolor: newColor.toHexString(), label: "New Color", share: 0});
 			}
 		});
 		
