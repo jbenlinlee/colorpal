@@ -12,20 +12,14 @@
 </head>
 <body>
 	<div id="app-container" ng-controller="colorPaletteController">
-		<div id="header">
-			<div id="view-name">ColorCubby</div>
-		</div>
-		
 		<div id="palette">
 			<div class="cp-entry-container" ng-repeat="colorEntry in colorPalette">
 				<cp-entry cp-color="colorEntry" cp-entry-index="$index"></cp-entry>
 			</div>
-			
-			<div class="cp-entry-container"></div> <!-- Placeholder -->
+		</div>
 		
-			<div class="cp-entry-container" id="add-control" ng-click="appendColor()">
-			  <div id="add-label" style="font-size: 1.5em">+</div>
-			</div>
+		<div id="add-control" style="font-size: 1.5em" ng-click="appendColor()">
+			<div id="add-label">+</div>
 		</div>
 	</div>
 	
