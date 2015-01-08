@@ -145,6 +145,15 @@ colorPaletteModule.controller('colorPaletteController', ['$scope', function($sco
 		
 		$scope.colorPalette = newPalette;
 	});
+	
+	$scope.$on('showEditor', function(event, idx) {
+		$scope.editColor = idx;
+		$('div#color-editor').show();
+	});
+	
+	$scope.closeEditor = function() {
+		$('div#color-editor').hide();
+	};
 		
 	$scope.$watch('colorPalette', function(newPalette, oldPalette) {
 		updateUrl();
